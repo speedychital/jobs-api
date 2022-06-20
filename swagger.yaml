@@ -61,6 +61,16 @@ paths:
             summary: Create Job
             operationId: CreateJob
             parameters: []
+            requestBody:
+                description: ""
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/CreateJobRequest"
+                        example:
+                            company: google
+                            position: front-end developer
+                required: true
             responses:
                 "200":
                     description: ""
@@ -172,6 +182,20 @@ components:
             example:
                 email: aditya@gmail.com
                 password: hackpc
+        CreateJobRequest:
+            title: CreateJobRequest
+            required:
+                - company
+                - position
+            type: object
+            properties:
+                company:
+                    type: string
+                position:
+                    type: string
+            example:
+                company: google
+                position: front-end developer
         UpdateJobRequest:
             title: UpdateJobRequest
             required:
