@@ -57,7 +57,7 @@ paths:
     /jobs:
         post:
             tags:
-                - Jobs
+                - Auth
             summary: Create Job
             operationId: CreateJob
             parameters: []
