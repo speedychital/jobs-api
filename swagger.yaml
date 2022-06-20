@@ -4,7 +4,7 @@ info:
     contact: {}
     version: "1.0"
 servers:
-    - url: https://project-jobs-api.herokuapp.com/api/v1
+    - url: https://jobs-api-06.herokuapp.com/api/v1
       variables: {}
 paths:
     /auth/register:
@@ -21,9 +21,9 @@ paths:
                         schema:
                             $ref: "#/components/schemas/RegisterUserRequest"
                         example:
-                            name: Aditya
-                            email: aditya@gmail.com
-                            password: hack
+                            name: bob
+                            email: bob@gmail.com
+                            password: secret
                 required: true
             responses:
                 "200":
@@ -45,8 +45,8 @@ paths:
                         schema:
                             $ref: "#/components/schemas/LoginUserRequest"
                         example:
-                            email: aditya@gmail.com
-                            password: hackpc
+                            email: susan@gmail.com
+                            password: secret
                 required: true
             responses:
                 "200":
@@ -57,7 +57,7 @@ paths:
     /jobs:
         post:
             tags:
-                - Auth
+                - Jobs
             summary: Create Job
             operationId: CreateJob
             parameters: []
@@ -87,8 +87,6 @@ paths:
                     description: ""
                     headers: {}
             deprecated: false
-            security:
-                - bearer: []
     /jobs/{id}:
         parameters:
             - in: path
@@ -108,8 +106,6 @@ paths:
                     description: ""
                     headers: {}
             deprecated: false
-            security:
-                - bearer: []
 
         patch:
             tags:
@@ -124,17 +120,14 @@ paths:
                         schema:
                             $ref: "#/components/schemas/UpdateJobRequest"
                         example:
-                            company: tata
-                            position: data head
+                            company: random
+                            position: intern
                 required: true
             responses:
                 "200":
                     description: ""
                     headers: {}
             deprecated: false
-            security:
-                - bearer: []
-
         delete:
             tags:
                 - Jobs
@@ -146,8 +139,6 @@ paths:
                     description: ""
                     headers: {}
             deprecated: false
-            security:
-                - bearer: []
 components:
     schemas:
         RegisterUserRequest:
@@ -165,9 +156,9 @@ components:
                 password:
                     type: string
             example:
-                name: Aditya
-                email: aditya@gmail.com
-                password: hack
+                name: bob
+                email: bob@gmail.com
+                password: secret
         LoginUserRequest:
             title: LoginUserRequest
             required:
@@ -180,8 +171,8 @@ components:
                 password:
                     type: string
             example:
-                email: aditya@gmail.com
-                password: hackpc
+                email: susan@gmail.com
+                password: secret
         CreateJobRequest:
             title: CreateJobRequest
             required:
@@ -208,13 +199,14 @@ components:
                 position:
                     type: string
             example:
-                company: tata
-                position: data head
+                company: random
+                position: intern
     securitySchemes:
-        bearer:
+        httpBearer:
             type: http
             scheme: bearer
-security: []
+security:
+    - httpBearer: []
 tags:
     - name: Auth
       description: ""
