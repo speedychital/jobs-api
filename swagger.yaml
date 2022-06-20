@@ -27,8 +27,13 @@ paths:
                 required: true
             responses:
                 "200":
-                    description: ""
+                    description: "Successfully registered"
                     headers: {}
+                "400":
+                    description: "Bad Request, please see the response message for details."
+                    headers: {}
+                "500":
+                    description: "Server error, please see the response message for details."
             deprecated: false
             security: []
     /auth/login:
