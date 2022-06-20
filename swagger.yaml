@@ -15,7 +15,7 @@ paths:
             operationId: RegisterUser
             parameters: []
             requestBody:
-                description: ""
+                description: "Provide name, email and password in JSON format. See example for more details"
                 content:
                     application/json:
                         schema:
@@ -26,8 +26,8 @@ paths:
                             password: secret
                 required: true
             responses:
-                "200":
-                    description: "Successfully registered"
+                "201":
+                    description: "Success. Use the token received to Authorize for various requests in Jobs section"
                     headers: {}
                 "400":
                     description: "Bad Request, please see the response message for details."
@@ -44,7 +44,7 @@ paths:
             operationId: LoginUser
             parameters: []
             requestBody:
-                description: ""
+                description: "Provide email and password registerd with us. See example below for more details"
                 content:
                     application/json:
                         schema:
@@ -55,8 +55,14 @@ paths:
                 required: true
             responses:
                 "200":
-                    description: ""
+                    description: "Success. Use the token received to Authorize for various requests in Jobs section"
                     headers: {}
+                "400":
+                    description: "Bad Request, please see the response message for details."
+                    headers: {}
+                "401":
+                    description: "Invalid credentials. Please register, if you don't have one"
+                    header: {}
             deprecated: false
             security: []
     /jobs:
@@ -67,7 +73,7 @@ paths:
             operationId: CreateJob
             parameters: []
             requestBody:
-                description: ""
+                description: "Provide a JSON object, giving details of Job you want to create. It have company, position as required fields. status [pending, interview, completed] is OPTIONAL"
                 content:
                     application/json:
                         schema:
@@ -77,9 +83,18 @@ paths:
                             position: front-end developer
                 required: true
             responses:
-                "200":
-                    description: ""
+                "201":
+                    description: "Success"
                     headers: {}
+                "400":
+                    description: "Bad Request. See the response message for details."
+                    header: {}
+                "401":
+                    description: "Invalid credentials. Please authorise yourself by updating token at top."
+                    header: {}
+                "500":
+                    description: "Internal Server Error."
+                    header: {}
             deprecated: false
         get:
             tags:
@@ -89,8 +104,11 @@ paths:
             parameters: []
             responses:
                 "200":
-                    description: ""
+                    description: "Success. An Object of 'jobs' and 'length' will be received."
                     headers: {}
+                "401":
+                    description: "Invalid credentials. Please authorise yourself by updating token at top."
+                    header: {}
             deprecated: false
     /jobs/{id}:
         parameters:
@@ -108,10 +126,15 @@ paths:
             parameters: []
             responses:
                 "200":
-                    description: ""
+                    description: "Success"
+                    headers: {}
+                "401":
+                    description: "Invalid credentials. Please authorise yourself by updating token at top."
+                    header: {}
+                "404":
+                    description: "Incorrect ID"
                     headers: {}
             deprecated: false
-
         patch:
             tags:
                 - Jobs
@@ -119,7 +142,7 @@ paths:
             operationId: UpdateJob
             parameters: []
             requestBody:
-                description: ""
+                description: "A JSON object containing fields that you want to update.Invalid fields will be discarded."
                 content:
                     application/json:
                         schema:
@@ -130,7 +153,13 @@ paths:
                 required: true
             responses:
                 "200":
-                    description: ""
+                    description: "Success"
+                    headers: {}
+                "401":
+                    description: "Invalid credentials. Please authorise yourself by updating token at top."
+                    header: {}
+                "404":
+                    description: "Incorrect ID"
                     headers: {}
             deprecated: false
         delete:
@@ -141,7 +170,13 @@ paths:
             parameters: []
             responses:
                 "200":
-                    description: ""
+                    description: "Success"
+                    headers: {}
+                "401":
+                    description: "Invalid credentials. Please authorise yourself by updating token at top."
+                    header: {}
+                "404":
+                    description: "Incorrect ID"
                     headers: {}
             deprecated: false
 components:
